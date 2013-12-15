@@ -675,8 +675,8 @@ void setup()
 
 
   Serial.begin(9600);
-  Serial.println(F("InvenSense MPU-6050"));
-  Serial.println(F("June 2012"));
+  //Serial.println(F("InvenSense MPU-6050"));
+  //Serial.println(F("June 2012"));
 
   // Initialize the 'Wire' class for the I2C-bus.
   Wire.begin();
@@ -690,10 +690,10 @@ void setup()
   //
 
   error = MPU6050_read (MPU6050_WHO_AM_I, &c, 1);
-  Serial.print(F("WHO_AM_I : "));
-  Serial.print(c,HEX);
-  Serial.print(F(", error = "));
-  Serial.println(error,DEC);
+  //Serial.print(F("WHO_AM_I : "));
+  //Serial.print(c,HEX);
+  //Serial.print(F(", error = "));
+  //Serial.println(error,DEC);
 
   // According to the datasheet, the 'sleep' bit
   // should read a '1'. But I read a '0'.
@@ -701,10 +701,10 @@ void setup()
   // is in sleep mode at power-up. Even if the
   // bit reads '0'.
   error = MPU6050_read (MPU6050_PWR_MGMT_2, &c, 1);
-  Serial.print(F("PWR_MGMT_2 : "));
-  Serial.print(c,HEX);
-  Serial.print(F(", error = "));
-  Serial.println(error,DEC);
+  //Serial.print(F("PWR_MGMT_2 : "));
+  //Serial.print(c,HEX);
+  //Serial.print(F(", error = "));
+  //Serial.println(error,DEC);
 
 
   // Clear the 'sleep' bit to start the sensor.
@@ -719,8 +719,8 @@ void loop()
   accel_t_gyro_union accel_t_gyro;
 
 
-  Serial.println(F(""));
-  Serial.println(F("MPU-6050"));
+  //Serial.println(F(""));
+  //Serial.println(F("MPU-6050"));
 
   // Read the raw values.
   // Read 14 bytes at once, 
@@ -729,8 +729,8 @@ void loop()
   // there is no filter enabled, and the values
   // are not very stable.
   error = MPU6050_read (MPU6050_ACCEL_XOUT_H, (uint8_t *) &accel_t_gyro, sizeof(accel_t_gyro));
-  Serial.print(F("Read accel, temp and gyro, error = "));
-  Serial.println(error,DEC);
+  //Serial.print(F("Read accel, temp and gyro, error = "));
+  //Serial.println(error,DEC);
 
 
   // Swap all high and low bytes.
@@ -751,13 +751,13 @@ void loop()
 
   // Print the raw acceleration values
 
-  Serial.print(F("accel x,y,z: "));
-  Serial.print(accel_t_gyro.value.x_accel, DEC);
-  Serial.print(F(", "));
-  Serial.print(accel_t_gyro.value.y_accel, DEC);
-  Serial.print(F(", "));
-  Serial.print(accel_t_gyro.value.z_accel, DEC);
-  Serial.println(F(""));
+  //Serial.print(F("accel x,y,z: "));
+  //Serial.print(accel_t_gyro.value.x_accel, DEC);
+  //Serial.print(F(", "));
+  //Serial.print(accel_t_gyro.value.y_accel, DEC);
+  //Serial.print(F(", "));
+  //Serial.print(accel_t_gyro.value.z_accel, DEC);
+  //Serial.println(F(""));
 
 
   // The temperature sensor is -40 to +85 degrees Celsius.
@@ -766,36 +766,36 @@ void loop()
   //   340 per degrees Celsius, -512 at 35 degrees.
   // At 0 degrees: -512 - (340 * 35) = -12412
 
-  Serial.print(F("temperature: "));
+  //Serial.print(F("temperature: "));
   dT = ( (double) accel_t_gyro.value.temperature + 12412.0) / 340.0;
-  Serial.print(dT, 3);
-  Serial.print(F(" degrees Celsius"));
-  Serial.println(F(""));
+  //Serial.print(dT, 3);
+  //Serial.print(F(" degrees Celsius"));
+  //Serial.println(F(""));
 
 
   /* Print the raw gyro values.
 
-  Serial.print(F("gyro x,y,z : "));
-  Serial.print(accel_t_gyro.value.x_gyro, DEC);
-  Serial.print(F(", "));
-  Serial.print(accel_t_gyro.value.y_gyro, DEC);
-  Serial.print(F(", "));
-  Serial.print(accel_t_gyro.value.z_gyro, DEC);
-  Serial.print(F(", "));
-  Serial.println(F(""));
+  //Serial.print(F("gyro x,y,z : "));
+  //Serial.print(accel_t_gyro.value.x_gyro, DEC);
+  //Serial.print(F(", "));
+  //Serial.print(accel_t_gyro.value.y_gyro, DEC);
+  //Serial.print(F(", "));
+  //Serial.print(accel_t_gyro.value.z_gyro, DEC);
+  //Serial.print(F(", "));
+  //Serial.println(F(""));
   
   */
 
-  // Write the raw gyro values to unity.
+  // Send the raw gyro values to unity.
   
-  Serial.write(accel_t_gyro.value.x_gyro);
-  Serial.write(",");
-  Serial.write(accel_t_gyro.value.y_gyro);
-  Serial.write(",");
-  Serial.write(accel_t_gyro.value.z_gyro);
-  Serial.write("/");
+  Serial.print(accel_t_gyro.value.x_gyro);
+  Serial.print(",");
+  Serial.print(accel_t_gyro.value.y_gyro);
+  Serial.print(",");
+  Serial.print(accel_t_gyro.value.z_gyro);
+  Serial.print("\n");
   
-  delay(1000);
+  delay(10);
 }
 
 
