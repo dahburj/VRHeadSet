@@ -22,10 +22,12 @@ public class GyroReader : MonoBehaviour {
 	// Use this for initialization
 	void Start () 
 	{
+		//testing splitting
 		splitAxis("23,15,99");
 		serialPort.Open ();
 		serialPort.ReadTimeout = 1;
 	}
+	//split the recieved axis
 	public void splitAxis(string sample){
 		axis = sample.Split(',');
 		gyrox=float.Parse(axis[0]);
